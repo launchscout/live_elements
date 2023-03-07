@@ -1,6 +1,16 @@
 # LiveElements
 
-The goal of LiveElements is to improve the ergonomics of integrating custom HTML elements with [Phoenix LiveView](https://hexdocs.pm/phoenix_live_view). We accomplish this by creating helper functions to make 
+## Goals
+The goal of LiveElements is to improve the ergonomics of integrating custom HTML elements with [Phoenix LiveView](https://hexdocs.pm/phoenix_live_view). 
+
+## Non-goals
+This project assumes
+you are using custom elements on a page served by phoenix. If you are building custom elements 
+that need to talk to a phoenix app but live on a page not served by phoenix (on a statically generated site for example), you may want to check out [LiveState](https://hexdocs.pm/live_state) instead.
+
+## Description
+
+We accomplish our goal by creating helper functions to make 
 working with custom elements just as easy as any other LiveView functional component.
 
 For example, let's say you have a `<todo-list>` custom element that has an attribute 
@@ -12,7 +22,7 @@ so:
 <.todo_list todos={@todos}></.todo_list>
 ```
 
-Serialization of todos to json happens automatically. In your live view you handle handle the `add_todo` event just like any other live view event:
+Serialization of todos to json happens automatically. In your live view you handle the `add_todo` event just like any other live view event:
 
 ```elixir
   def handle_event("add_todo", %{"todo" => todo}, %{assigns: %{todos: todos}} = socket) do
@@ -62,6 +72,9 @@ In the LiveViews where you want to call custom element helper functions do:
 ```
 use LiveElements.CustomElementsHelpers
 ```
+
+You can do this in `core_components.ex` if you want custom element helper functions available in 
+all your live view.
 
 ## Producing helper functions from a custom elements manifest file
 
