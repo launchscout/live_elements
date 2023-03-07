@@ -1,11 +1,11 @@
 # LiveElements
 
-The goal of LiveElements is to improve the ergonomics of integrating custom HTML elements with LiveView. We accomplish this by creating helper functions to make 
+The goal of LiveElements is to improve the ergonomics of integrating custom HTML elements with [Phoenix LiveView](https://hexdocs.pm/phoenix_live_view). We accomplish this by creating helper functions to make 
 working with custom elements just as easy as any other LiveView functional component.
 
 For example, let's say you have a `<todo-list>` custom element that has an attribute 
 that takes a list of todos, and emits an `add_todo` Custom Event. LiveElements will 
-generate a helper function (details below) which will wraps the custom element like
+generate a helper function (details below) which will wrap the custom element like
 so:
 
 ```heex
@@ -69,7 +69,8 @@ LiveElements can consume a [custom elements manifest file](https://github.com/we
 at compile time. To do so, in your config:
 
 ```elixir
-config :live_elements, custom_elements_manifest: Path.expand("../assets/custom-elements.json", __DIR__)
+config :live_elements, 
+  custom_elements_manifest: Path.expand("../assets/custom-elements.json", __DIR__)
 ```
 
 To produce a manifest file automatically from your custom element source code, you might want to check out the [custom element analyzer](https://custom-elements-manifest.open-wc.org/analyzer/getting-started/) from open-wc.org.
@@ -79,7 +80,7 @@ To produce a manifest file automatically from your custom element source code, y
 If you are using a library that does not have a manifest, or don't wish to use one, you can 
 also use the `custom_element` macro like so:
 
-```
+```elixir
   custom_element :bx_data_table, events: ["bx-table-header-cell-sort"]
 ```
 
