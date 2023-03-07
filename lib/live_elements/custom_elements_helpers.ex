@@ -3,11 +3,16 @@ defmodule LiveElements.CustomElementsHelpers do
   alias LiveElements.CustomElementsHelpers
 
   defmacro __using__(_opts) do
+    quote do
+      require LiveElements.CustomElementsHelpers
+      import LiveElements.CustomElementsHelpers
+    end
+
     for custom_element <- CustomElementsHelpers.custom_elements() do
-      %{"tagName" => tag_name, "events" => events} = custom_element
+      %{"tagName" => tag_name} = custom_element
+      events = Map.get(custom_element, "events", [])
       event_names = events |> Enum.map(& &1["name"]) |> Enum.join(",")
       function_name = function_name(tag_name)
-      IO.inspect(function_name, label: "defining function")
 
       quote do
         def unquote(function_name)(assigns) do
@@ -27,15 +32,24 @@ defmodule LiveElements.CustomElementsHelpers do
 
   def custom_elements do
     ce_manifest_path = Application.get_env(:live_elements, :custom_elements_manifest)
-    %{"modules" => modules} = File.read!(ce_manifest_path) |> Jason.decode!()
-    modules |> find_custom_elements()
+    find_custom_elements(ce_manifest_path)
   end
 
   def serialize(assigns) do
-    assigns |> Enum.map(fn {key, value} -> {key, Jason.encode!(value)} end)
+    assigns |> Enum.map(fn {key, value} -> {key, serialize_value(value)} end)
   end
 
-  def find_custom_elements(modules) do
+  def serialize_value(value) when is_binary(value), do: value
+
+  def serialize_value(value) when is_number(value), do: value
+
+  def serialize_value(value), do: Jason.encode!(value)
+
+  def find_custom_elements(nil), do: []
+
+  def find_custom_elements(ce_manifest_path) do
+    %{"modules" => modules} = File.read!(ce_manifest_path) |> Jason.decode!()
+
     modules
     |> Enum.map(& &1["declarations"])
     |> Enum.concat()
@@ -64,6 +78,7 @@ defmodule LiveElements.CustomElementsHelpers do
 
   def custom_element_tag(assigns, tag_name, events) do
     attrs = assigns_to_attributes(assigns) |> serialize()
+    IO.inspect(attrs, label: "attrs passed")
 
     assigns =
       assigns
