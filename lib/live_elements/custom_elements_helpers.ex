@@ -78,7 +78,6 @@ defmodule LiveElements.CustomElementsHelpers do
 
   def custom_element_tag(assigns, tag_name, events) do
     attrs = assigns_to_attributes(assigns) |> serialize()
-    IO.inspect(attrs, label: "attrs passed")
 
     assigns =
       assigns
