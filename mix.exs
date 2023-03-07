@@ -1,13 +1,20 @@
 defmodule LiveElements.MixProject do
   use Mix.Project
 
+  @description "A package to make custom elements and Phoenix LiveView so happy together"
+
   def project do
     [
       app: :live_elements,
       version: "0.1.0",
       elixir: "~> 1.14",
+      description: @description,
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      package: [
+        licenses: ["MIT"],
+        links: %{"Github" => "https://github.com/launchscout/live_elements"}
+      ],
       docs: [
         main: "readme",
         extras: ["README.md"]
