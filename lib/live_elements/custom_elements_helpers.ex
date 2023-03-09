@@ -3,12 +3,12 @@ defmodule LiveElements.CustomElementsHelpers do
   alias LiveElements.CustomElementsHelpers
 
   defmacro __using__(_opts) do
-    quote do
+    imports = quote do
       require LiveElements.CustomElementsHelpers
       import LiveElements.CustomElementsHelpers
     end
 
-    for custom_element <- CustomElementsHelpers.custom_elements() do
+    manifest_defs = for custom_element <- CustomElementsHelpers.custom_elements() do
       %{"tagName" => tag_name} = custom_element
       events = Map.get(custom_element, "events", [])
       event_names = events |> Enum.map(& &1["name"]) |> Enum.join(",")
@@ -24,6 +24,8 @@ defmodule LiveElements.CustomElementsHelpers do
         end
       end
     end
+
+    [imports | manifest_defs]
   end
 
   def function_name(tag_name) do
