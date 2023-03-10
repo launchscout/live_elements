@@ -73,8 +73,8 @@ In the LiveViews where you want to call custom element helper functions do:
 use LiveElements.CustomElementsHelpers
 ```
 
-You can do this in `core_components.ex` if you want custom element helper functions available in 
-all your live view.
+This will add helper functions for any custom elements found in your manifest file, if
+you have one configured, as well as importing the `custom_element` macro.
 
 ## Producing helper functions from a custom elements manifest file
 
