@@ -45,6 +45,8 @@ defmodule LiveElements.CustomElementsHelpers do
 
   def serialize_value(value) when is_number(value), do: value
 
+  def serialize_value(%Phoenix.LiveComponent.CID{cid: cid}), do: cid
+
   def serialize_value(value), do: Jason.encode!(value)
 
   def find_custom_elements(nil), do: []
