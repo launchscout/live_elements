@@ -1,0 +1,16 @@
+name: Trigger Integration Tests
+
+on: push
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Repository Dispatch
+      uses: peter-evans/repository-dispatch@v2
+      with:
+        event-type: run-integration-tests
+        repository: "launchscout/live_elements_testbed"
+        token: ${{ secrets.TESTBED_PAT}}        
