@@ -3,27 +3,29 @@ defmodule LiveElements.CustomElementsHelpers do
   alias LiveElements.CustomElementsHelpers
 
   defmacro __using__(_opts) do
-    imports = quote do
-      require LiveElements.CustomElementsHelpers
-      import LiveElements.CustomElementsHelpers
-    end
-
-    manifest_defs = for custom_element <- CustomElementsHelpers.custom_elements() do
-      %{"tagName" => tag_name} = custom_element
-      events = Map.get(custom_element, "events", [])
-      event_names = events |> Enum.map(& &1["name"]) |> Enum.join(",")
-      function_name = function_name(tag_name)
-
+    imports =
       quote do
-        def unquote(function_name)(assigns) do
-          LiveElements.CustomElementsHelpers.custom_element_tag(
-            assigns,
-            unquote(tag_name),
-            unquote(event_names)
-          )
+        require LiveElements.CustomElementsHelpers
+        import LiveElements.CustomElementsHelpers
+      end
+
+    manifest_defs =
+      for custom_element <- CustomElementsHelpers.custom_elements() do
+        %{"tagName" => tag_name} = custom_element
+        events = Map.get(custom_element, "events", [])
+        event_names = events |> Enum.map(& &1["name"]) |> Enum.join(",")
+        function_name = function_name(tag_name)
+
+        quote do
+          def unquote(function_name)(assigns) do
+            LiveElements.CustomElementsHelpers.custom_element_tag(
+              assigns,
+              unquote(tag_name),
+              unquote(event_names)
+            )
+          end
         end
       end
-    end
 
     [imports | manifest_defs]
   end
@@ -66,9 +68,10 @@ defmodule LiveElements.CustomElementsHelpers do
 
   def tagify(function_name), do: function_name |> Atom.to_string() |> String.replace("_", "-")
 
-  defmacro custom_element(function_name, options) do
+  defmacro custom_element(function_name, options \\ []) do
     tag_name = tagify(function_name)
     events = Keyword.get(options, :events, [])
+
     quote do
       def unquote(function_name)(assigns) do
         LiveElements.CustomElementsHelpers.custom_element_tag(
@@ -81,7 +84,7 @@ defmodule LiveElements.CustomElementsHelpers do
   end
 
   def custom_element_tag(assigns, tag_name, events) do
-    attrs = assigns_to_attributes(assigns) |> serialize()
+    attrs = assigns |> maybe_generate_id() |> assigns_to_attributes() |> serialize()
 
     assigns =
       assigns
@@ -98,4 +101,8 @@ defmodule LiveElements.CustomElementsHelpers do
     </.dynamic_tag>
     """
   end
+
+  defp maybe_generate_id(%{id: _id} = assigns), do: assigns
+  defp maybe_generate_id(assigns), do: Map.put(assigns, :id, UUID.uuid1())
+
 end
