@@ -40,7 +40,7 @@ by adding `live_elements` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:live_elements, "~> 0.1.0"}
+    {:live_elements, "~> 0.2.1"}
   ]
 end
 ```
