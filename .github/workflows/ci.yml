@@ -8,9 +8,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Repository Dispatch
-      uses: peter-evans/repository-dispatch@v2
-      with:
-        event-type: run-integration-tests
-        repository: "launchscout/live_elements_testbed"
-        token: ${{ secrets.TESTBED_PAT}}        
+    - name: Install dependencies
+      run: mix deps.get
+    - name: Install testbed dependencies
+      run: mix deps.get
+      working-directory: ./test_bed
+    - name: Run elixir tests
+      run: mix test
+      working-directory: ./test_bed
