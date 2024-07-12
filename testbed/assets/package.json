@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "analyze": "cem analyze --dependencies --litelement"
+  },
+  "dependencies": {
+    "@carbon/web-components": "^1.24.0",
+    "chart.js": "^4.2.1",
+    "lit": "^2.6.1",
+    "phoenix-custom-event-hook": "^0.0.6"
+  },
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.6.8"
+  }
+}

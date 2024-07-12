@@ -1,0 +1,170 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "js/app.js",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "js/pie-chart.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "PieChartElement",
+          "members": [
+            {
+              "kind": "field",
+              "name": "chartData",
+              "type": {
+                "text": "{}"
+              },
+              "attribute": "chart-data"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "label"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "chart-data",
+              "type": {
+                "text": "{}"
+              },
+              "fieldName": "chartData"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "label"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "pie-chart",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PieChartElement",
+          "declaration": {
+            "name": "PieChartElement",
+            "module": "js/pie-chart.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "pie-chart",
+          "declaration": {
+            "name": "PieChartElement",
+            "module": "js/pie-chart.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "js/todo-list.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TodoListElement",
+          "members": [
+            {
+              "kind": "field",
+              "name": "todos",
+              "type": {
+                "text": "Array<string>"
+              },
+              "default": "[]",
+              "attribute": "todos"
+            },
+            {
+              "kind": "field",
+              "name": "todoInput",
+              "type": {
+                "text": "HTMLInputElement | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "addTodo",
+              "parameters": [
+                {
+                  "name": "_event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "name": "add_todo",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "todos",
+              "type": {
+                "text": "Array<string>"
+              },
+              "default": "[]",
+              "fieldName": "todos"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "todo-list",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TodoListElement",
+          "declaration": {
+            "name": "TodoListElement",
+            "module": "js/todo-list.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "todo-list",
+          "declaration": {
+            "name": "TodoListElement",
+            "module": "js/todo-list.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "vendor/topbar.js",
+      "declarations": [],
+      "exports": []
+    }
+  ]
+}

@@ -34,7 +34,7 @@ defmodule LiveElements.MixProject do
     [
       {:phoenix, ">= 1.7.1"},
       {:ex_doc, ">= 0.0.0"},
-      {:phoenix_live_view, ">= 0.18.0"},
+      {:phoenix_live_view, "~> 1.0.0-rc.6"},
       {:jason, ">= 0.0.0"},
       {:uuid, "~> 1.1"}
     ]

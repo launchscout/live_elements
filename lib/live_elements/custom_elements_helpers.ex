@@ -84,25 +84,34 @@ defmodule LiveElements.CustomElementsHelpers do
   end
 
   def custom_element_tag(assigns, tag_name, events) do
-    attrs = assigns |> maybe_generate_id() |> assigns_to_attributes() |> serialize()
+    attrs =
+      assigns
+      |> maybe_generate_id()
+      |> Map.put("phx-hook", custom_event_hook())
+      |> Map.put("phx-send-events", events)
+      |> assigns_to_attributes()
+      |> serialize()
+
+    # Taken from `dynamic_tag` while awaiting fix for https://github.com/phoenixframework/phoenix_live_view/issues/3341
 
     assigns =
       assigns
       |> assign(
         tag_name: tag_name,
-        attrs: attrs,
-        events: events,
-        custom_event_hook: custom_event_hook()
+        escaped_attrs: Phoenix.LiveView.HTMLEngine.attributes_escape(attrs),
       )
 
-    ~H"""
-    <.dynamic_tag name={@tag_name} {@attrs} phx-hook={@custom_event_hook} phx-send-events={@events}>
-      <%= render_slot(@inner_block) %>
-    </.dynamic_tag>
-    """
+    if assigns.inner_block != [] do
+      ~H"""
+      <%= {:safe, [?<, @tag_name]} %><%= @escaped_attrs %><%= {:safe, [?>]} %><%= render_slot(@inner_block) %><%= {:safe, [?<, ?/, @tag_name, ?>]} %>
+      """
+    else
+      ~H"""
+      <%= {:safe, [?<, @tag_name]} %><%= @escaped_attrs %><%= {:safe, [?/, ?>]} %>
+      """
+    end
   end
 
   defp maybe_generate_id(%{id: _id} = assigns), do: assigns
   defp maybe_generate_id(assigns), do: Map.put(assigns, :id, UUID.uuid1())
-
 end

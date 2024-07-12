@@ -1,0 +1,21 @@
+
+<.bx_data_table id="datable">
+  <bx-table>
+    <bx-table-head>
+      <bx-table-header-row>
+        <bx-table-header-cell sort-direction="none" data-column-id="foo">Foo</bx-table-header-cell>
+        <bx-table-header-cell sort-direction="none" data-column-id="bar">Bar</bx-table-header-cell>
+        <bx-table-header-cell sort-direction="none" data-column-id="baz">Baz</bx-table-header-cell>
+      </bx-table-header-row>
+    </bx-table-head>
+    <bx-table-body>
+      <%= for item <- @items do %>
+      <bx-table-row>
+        <bx-table-cell><%= item.foo %></bx-table-cell>
+        <bx-table-cell><%= item.bar %></bx-table-cell>
+        <bx-table-cell><%= item.baz %></bx-table-cell>
+      </bx-table-row>
+      <% end %>
+    </bx-table-body>
+  </bx-table>
+</.bx_data_table>
