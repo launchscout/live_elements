@@ -24,6 +24,7 @@ defmodule LiveElementsTestbedWeb.Router do
     live "/eat_pie", EatPie
     live "/with_component", WithComponent
     live "/data_table", Live.DataTable
+    live "/form_associated", FormAssociated
   end
 
   # Other scopes may use custom stacks.
