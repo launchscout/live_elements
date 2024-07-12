@@ -19,7 +19,7 @@ jobs:
       run: mix deps.get
     - name: Install testbed dependencies
       run: mix deps.get
-      working-directory: ./test_bed
+      working-directory: ./testbed
     - name: Run elixir tests
       run: mix test
-      working-directory: ./test_bed
+      working-directory: ./testbed
