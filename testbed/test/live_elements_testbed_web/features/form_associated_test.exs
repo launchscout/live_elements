@@ -10,6 +10,9 @@ defmodule LiveElementsTestbedWeb.Features.FormAssociatedTest do
     |> assert_has(css("foo-input"))
     |> click(css("foo-input"))
     |> click(css("button"))
+
+    :timer.sleep(100)
+    session
     |> assert_has(css("dt", text: "foo"))
   end
 end

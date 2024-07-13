@@ -98,10 +98,10 @@ defmodule LiveElements.CustomElementsHelpers do
       assigns
       |> assign(
         tag_name: tag_name,
-        escaped_attrs: Phoenix.LiveView.HTMLEngine.attributes_escape(attrs),
+        escaped_attrs: Phoenix.LiveView.HTMLEngine.attributes_escape(attrs)
       )
 
-    if assigns.inner_block != [] do
+    if assigns[:inner_block] && assigns.inner_block != [] do
       ~H"""
       <%= {:safe, [?<, @tag_name]} %><%= @escaped_attrs %><%= {:safe, [?>]} %><%= render_slot(@inner_block) %><%= {:safe, [?<, ?/, @tag_name, ?>]} %>
       """
