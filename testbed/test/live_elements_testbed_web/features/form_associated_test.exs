@@ -8,6 +8,10 @@ defmodule LiveElementsTestbedWeb.Features.FormAssociatedTest do
     session = session
     |> visit("/form_associated")
     |> assert_has(css("foo-input"))
+
+    :timer.sleep(100)
+
+    session = session
     |> click(css("foo-input"))
     |> click(css("button"))
 
