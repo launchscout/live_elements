@@ -6,7 +6,7 @@ defmodule LiveElements.MixProject do
   def project do
     [
       app: :live_elements,
-      version: "0.2.3",
+      version: "0.2.4",
       elixir: "~> 1.14",
       description: @description,
       start_permanent: Mix.env() == :prod,
@@ -34,7 +34,7 @@ defmodule LiveElements.MixProject do
     [
       {:phoenix, ">= 1.7.1"},
       {:ex_doc, ">= 0.0.0"},
-      {:phoenix_live_view, "~> 1.0.0-rc.6"},
+      {:phoenix_live_view, "~> 1.0"},
       {:jason, ">= 0.0.0"},
       {:uuid, "~> 1.1"}
     ]
