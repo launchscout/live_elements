@@ -33,7 +33,7 @@ defmodule LiveElements.MixProject do
   defp deps do
     [
       {:phoenix, ">= 1.7.1"},
-      {:ex_doc, ">= 0.0.0"},
+      {:ex_doc, ">= 0.0.0", only: :dev},
       {:phoenix_live_view, "~> 1.0"},
       {:jason, ">= 0.0.0"},
       {:uuid, "~> 1.1"}
